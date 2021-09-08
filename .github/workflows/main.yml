@@ -38,18 +38,21 @@ jobs:
       - name: Setup NPM
         working-directory: ./src/WebProject
         run: npm install
-
-      - name: Build .NET Core Project
-        run: dotnet build ./src/WebProject/WebProject.csproj -c Release
         
       - name: Test .NET Core Project
         run: dotnet test ./src/WebProject/WebProject.csproj
         
       - name: Publish .NET Core Project
-        run: dotnet publish ./src/WebProject/WebProject.csproj -c Release -o release
+        run: dotnet publish ./src/WebProject/WebProject.csproj -c Release
       
+      # Publish the website
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+        uses: peaceiris/actions-gh-pages@v3.6.1
         with:
-          branch: gh-pages
-          folder: release/wwwroot
+          github_token: ${{ secrets.PUBLISH_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: bin/Release/netstandard2.1/publish/wwwroot
+          allow_empty_commit: false
+          keep_files: false
+          force_orphan: true
+          cname: chrismingay.dev
