@@ -46,7 +46,7 @@ jobs:
         run: dotnet test ./src/WebProject/WebProject.csproj
         
       - name: Publish .NET Core Project
-        run: dotnet publish ./src/WebProject/WebProject.csproj -c Release -o release --no-logo
+        run: dotnet publish ./src/WebProject/WebProject.csproj -c Release -o release
       
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.5
